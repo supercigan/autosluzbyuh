@@ -1,0 +1,12 @@
+# Screenshots a audit soubory
+_project-memory/*.png
+_project-memory/*.jpg
+_project-memory/*.webp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
