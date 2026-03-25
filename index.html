@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autoslužby UH — Autoservis Uherské Hradiště</title>
+  <meta name="description" content="Autoslužby UH s.r.o. — komplexní autoservis v Uherském Hradišti. Opravy vozidel, pneuservis, klimatizace, dekarbonizace motorů a příprava na STK. Zkušenosti od roku 2012.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* =====================
+       RESET & ROOT
+    ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { overflow-x: hidden; scroll-behavior: smooth; }
+    body {
+      overflow-x: hidden;
+      font-family: 'Manrope', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-dark);
+      background: var(--white);
+    }
+
+    /* =====================
+       CSS PROMĚNNÉ
+    ===================== */
+    :root {
+      --dark:        #141B22;
+      --dark-mid:    #1A2738;
+      --dark-soft:   #243347;
+      --teal:        #14B8A6;
+      --teal-d:      #0D9488;
+      --teal-dd:     #0A7A6E;
+      --teal-l:      #CCFBF1;
+      --teal-faint:  #F0FDFA;
+      --concrete:    #F8FAFC;
+      --border:      #E2E8F0;
+      --border-d:    #CBD5E1;
+      --white:       #FFFFFF;
+      --text-dark:   #0F172A;
+      --text-mid:    #475569;
+      --text-light:  #94A3B8;
+
+      --radius-sm:   4px;
+      --radius:      8px;
+      --radius-lg:   16px;
+      --shadow-sm:   0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.05);
+      --shadow:      0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
+      --shadow-lg:   0 12px 40px rgba(0,0,0,.12), 0 4px 12px rgba(0,0,0,.06);
+      --transition:  0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* =====================
+       TYPOGRAPHY
+    ===================== */
+    h1, h2, h3, h4, .logo-text, .nav-links a, .btn {
+      font-family: 'Syne', sans-serif;
+    }
+    h1 { font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+    h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; }
+    h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 700; line-height: 1.3; }
+    h4 { font-size: 1rem; font-weight: 700; }
+    p { color: var(--text-mid); line-height: 1.75; }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 2px;
+      background: var(--teal);
+      flex-shrink: 0;
+    }
+    .section-label.light { color: var(--teal-l); }
+    .section-label.light::before { background: var(--teal-l); }
+
+    /* =====================
+       BUTTONS
+    ===================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.85rem 1.75rem;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+      border: 2px solid transparent;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--teal);
+      color: var(--dark);
+    }
+    .btn-primary:hover {
+      background: var(--teal-d);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(20,184,166,.35);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255,255,255,.35);
+    }
+    .btn-ghost:hover {
+      background: rgba(255,255,255,.1);
+      border-color: rgba(255,255,255,.6);
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--teal);
+      border-color: var(--teal);
+    }
+    .btn-outline:hover {
+      background: var(--teal);
+      color: var(--dark);
+      transform: translateY(-2px);
+    }
+
+    /* =====================
+       LAYOUT
+    ===================== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    section { position: relative; }
+
+    /* =====================
+       FADE-UP ANIMACE
+    ===================== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .d1 { transition-delay: 0.1s; }
+    .d2 { transition-delay: 0.2s; }
+    .d3 { transition-delay: 0.3s; }
+    .d4 { transition-delay: 0.4s; }
+    .d5 { transition-delay: 0.5s; }
+
+    /* =====================
+       NAVIGACE
+    ===================== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      transition: var(--transition);
+      padding: 0;
+    }
+    nav.scrolled {
+      background: var(--dark);
+      box-shadow: 0 2px 20px rgba(0,0,0,.3);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      padding: 0 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--teal);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-icon svg { width: 22px; height: 22px; }
+    .logo-text {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.01em;
+    }
+    .logo-text span { color: var(--teal); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,.75);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: var(--transition);
+      padding-bottom: 3px;
+      border-bottom: 2px solid transparent;
+    }
+    .nav-links a:hover {
+      color: var(--teal);
+      border-bottom-color: var(--teal);
+    }
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .nav-phone {
+      color: var(--teal-l);
+      text-decoration: none;
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    .nav-phone:hover { color: var(--teal); }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: var(--dark);
+      padding: 1.5rem 2rem 2rem;
+      border-top: 1px solid rgba(255,255,255,.08);
+      transform: translateY(-10px);
+      opacity: 0;
+      transition: var(--transition);
+      pointer-events: none;
+    }
+    .mobile-menu.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+    .mobile-menu ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .mobile-menu ul li a {
+      display: block;
+      padding: 0.9rem 0;
+      color: rgba(255,255,255,.8);
+      text-decoration: none;
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      transition: var(--transition);
+    }
+    .mobile-menu ul li:last-child a { border-bottom: none; }
+    .mobile-menu ul li a:hover { color: var(--teal); padding-left: 8px; }
+    .mobile-menu .m-phone {
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--teal);
+      font-weight: 600;
+      font-size: 1.05rem;
+      text-decoration: none;
+    }
+
+    /* =====================
+       HERO
+    ===================== */
+    #hero {
+      min-height: 100vh;
+      background: var(--dark);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 72px;
+    }
+
+    /* Dekorativní teal glow — bubbles */
+    .hero-glow-1 {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(20,184,166,.12) 0%, transparent 70%);
+      right: -100px;
+      top: -80px;
+      pointer-events: none;
+    }
+    .hero-glow-2 {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(20,184,166,.07) 0%, transparent 70%);
+      right: 200px;
+      bottom: 0;
+      pointer-events: none;
+    }
+    /* Geometrický prvek — šikmý accent */
+    .hero-accent-bar {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 42%;
+      background: linear-gradient(135deg, transparent 0%, rgba(20,184,166,.04) 100%);
+      clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%);
+      pointer-events: none;
+    }
+    /* Teal vertical line */
+    .hero-line {
+      position: absolute;
+      left: 50%;
+      top: 15%;
+      bottom: 15%;
+      width: 1px;
+      background: linear-gradient(180deg, transparent, rgba(20,184,166,.2) 30%, rgba(20,184,166,.2) 70%, transparent);
+      pointer-events: none;
+      display: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 5rem;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(20,184,166,.12);
+      border: 1px solid rgba(20,184,166,.3);
+      border-radius: 100px;
+      padding: 6px 14px 6px 8px;
+      margin-bottom: 1.5rem;
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--teal-l);
+      letter-spacing: 0.04em;
+    }
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--teal);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.8); }
+    }
+    .hero-title {
+      color: var(--white);
+      margin-bottom: 1.25rem;
+    }
+    .hero-title .highlight {
+      color: var(--teal);
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.6);
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+      line-height: 1.8;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 2.5rem;
+    }
+    .hero-tag {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.5);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 100px;
+    }
+
+    /* Info panel vpravo */
+    .hero-panel {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(8px);
+      overflow: hidden;
+    }
+    .hero-panel-header {
+      background: var(--teal);
+      padding: 1.2rem 1.5rem;
+    }
+    .hero-panel-header h4 {
+      color: var(--dark);
+      font-family: 'Syne', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .hero-panel-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .info-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .info-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(20,184,166,.12);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .info-icon svg { width: 18px; height: 18px; color: var(--teal); }
+    .info-text { flex: 1; }
+    .info-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 2px;
+    }
+    .info-value {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.4;
+    }
+    .info-value a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .info-value a:hover { color: var(--teal); }
+    .hero-panel-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .status-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.6);
+    }
+    .status-dot::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: #22C55E;
+      border-radius: 50%;
+      display: block;
+    }
+
+    /* =====================
+       STATS PRUH
+    ===================== */
+    #stats {
+      background: var(--teal);
+      padding: 2rem 0;
+    }
+    .stats-inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+    .stat-item {
+      padding: 0.5rem;
+    }
+    .stat-number {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800;
+      color: var(--dark);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: rgba(20,27,34,.7);
+      margin-top: 0.3rem;
+      letter-spacing: 0.04em;
+    }
+    .stat-divider {
+      width: 1px;
+      background: rgba(20,27,34,.15);
+      margin: auto;
+    }
+
+    /* =====================
+       SLUŽBY
+    ===================== */
+    #sluzby {
+      background: var(--concrete);
+      padding: 7rem 0;
+    }
+    .services-header {
+      text-align: center;
+      max-width: 560px;
+      margin: 0 auto 4rem;
+    }
+    .services-header p {
+      margin-top: 0.75rem;
+      font-size: 1rem;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      background: var(--border-d);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .service-card {
+      background: var(--white);
+      padding: 2.2rem 2rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--teal);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: var(--transition);
+    }
+    .service-card:hover {
+      background: var(--teal-faint);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+      z-index: 1;
+    }
+    .service-card:hover::before {
+      transform: scaleY(1);
+    }
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--teal-l);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      transition: var(--transition);
+    }
+    .service-card:hover .service-icon {
+      background: var(--teal);
+    }
+    .service-icon svg { width: 26px; height: 26px; color: var(--teal-d); }
+    .service-card:hover .service-icon svg { color: var(--dark); }
+    .service-card h3 {
+      margin-bottom: 0.6rem;
+      color: var(--text-dark);
+    }
+    .service-card p {
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+    /* 5 karet: 3+2 layout */
+    .service-card:nth-child(4) { grid-column: 1; }
+    .service-card:nth-child(5) { grid-column: 2; }
+
+    /* =====================
+       PROČ MY
+    ===================== */
+    #proc-my {
+      background: var(--dark);
+      padding: 7rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    #proc-my::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--teal);
+    }
+    #proc-my::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--teal);
+    }
+    .why-glow {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(20,184,166,.08) 0%, transparent 65%);
+      left: -150px;
+      bottom: -100px;
+      pointer-events: none;
+    }
+    .why-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .why-text h2 { color: var(--white); margin-bottom: 1rem; }
+    .why-text p { color: rgba(255,255,255,.55); font-size: 1rem; margin-bottom: 2rem; }
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .why-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: var(--transition);
+    }
+    .why-card:hover {
+      background: rgba(20,184,166,.06);
+      border-color: rgba(20,184,166,.25);
+      transform: translateY(-2px);
+    }
+    .why-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: rgba(20,184,166,.25);
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+    .why-card h4 {
+      color: var(--white);
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+    }
+    .why-card p {
+      color: rgba(255,255,255,.45);
+      font-size: 0.83rem;
+      line-height: 1.6;
+    }
+
+    /* =====================
+       O NÁS + TÝM
+    ===================== */
+    #o-nas {
+      background: var(--white);
+      padding: 7rem 0;
+    }
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-content h2 { margin-bottom: 1.25rem; }
+    .about-content p { margin-bottom: 1.2rem; }
+    .about-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: 1.5rem;
+    }
+    .about-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-mid);
+    }
+    .about-list li::before {
+      content: '';
+      width: 18px;
+      height: 18px;
+      background: var(--teal-l);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230D9488' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-size: 10px;
+      background-repeat: no-repeat;
+      background-position: center;
+      flex-shrink: 0;
+    }
+
+    /* Tým */
+    .team-section { }
+    .team-title {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1.25rem;
+    }
+    .team-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .team-card {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--concrete);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: var(--transition);
+    }
+    .team-card:hover {
+      border-color: var(--teal);
+      background: var(--teal-faint);
+      transform: translateX(4px);
+    }
+    .team-avatar {
+      width: 52px;
+      height: 52px;
+      background: var(--dark-mid);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--teal);
+    }
+    .team-info h4 { color: var(--text-dark); font-size: 1rem; margin-bottom: 2px; }
+    .team-info .role {
+      font-size: 0.78rem;
+      color: var(--teal-d);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .team-info .phone-link {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      text-decoration: none;
+      margin-top: 4px;
+      transition: var(--transition);
+    }
+    .team-info .phone-link:hover { color: var(--teal); }
+
+    /* Vozidla box */
+    .vehicles-box {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: var(--dark);
+      border-radius: var(--radius);
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .vehicle-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      text-align: center;
+    }
+    .vehicle-item svg { width: 32px; height: 32px; color: var(--teal); }
+    .vehicle-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.6);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .v-divider {
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,.1);
+    }
+
+    /* =====================
+       HODINY + KONTAKT
+    ===================== */
+    #kontakt {
+      background: var(--dark-mid);
+      padding: 7rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .kontakt-glow {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(20,184,166,.07) 0%, transparent 70%);
+      right: -80px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+    .kontakt-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      position: relative;
+      z-index: 1;
+    }
+    .kontakt-left h2 { color: var(--white); margin-bottom: 0.75rem; }
+    .kontakt-left > p { color: rgba(255,255,255,.5); margin-bottom: 2.5rem; }
+
+    .hours-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .hours-table tr {
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .hours-table tr:last-child { border-bottom: none; }
+    .hours-table td {
+      padding: 0.7rem 0;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,.7);
+    }
+    .hours-table td:first-child {
+      font-weight: 600;
+      color: rgba(255,255,255,.5);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      width: 45%;
+    }
+    .hours-table .today td { color: var(--teal); }
+    .hours-table .today td:first-child { color: var(--teal); }
+
+    .hours-note {
+      margin-top: 1.25rem;
+      padding: 1rem 1.25rem;
+      background: rgba(20,184,166,.08);
+      border: 1px solid rgba(20,184,166,.2);
+      border-radius: var(--radius);
+      font-size: 0.82rem;
+      color: rgba(255,255,255,.55);
+    }
+    .hours-note strong { color: var(--teal-l); }
+
+    /* Kontaktní karty */
+    .kontakt-right h3 {
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+    }
+    .contact-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .contact-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.25rem;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      transition: var(--transition);
+    }
+    .contact-card:hover {
+      background: rgba(20,184,166,.07);
+      border-color: rgba(20,184,166,.25);
+    }
+    .contact-card-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(20,184,166,.12);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-card-icon svg { width: 20px; height: 20px; color: var(--teal); }
+    .contact-card-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 3px;
+    }
+    .contact-card-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+    .contact-card-value a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .contact-card-value a:hover { color: var(--teal); }
+    .contact-card-sub {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,.4);
+      margin-top: 2px;
+    }
+
+    /* =====================
+       FORMULÁŘ
+    ===================== */
+    #formular {
+      background: var(--white);
+      padding: 7rem 0;
+    }
+    .form-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .form-intro h2 { margin-bottom: 1rem; }
+    .form-intro p { font-size: 0.95rem; margin-bottom: 2rem; }
+    .form-quick {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .form-quick-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.875rem;
+      color: var(--text-mid);
+    }
+    .fq-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--teal);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Formulář samotný */
+    .contact-form {
+      background: var(--concrete);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-group:last-child { margin-bottom: 0; }
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: var(--white);
+      border: 1.5px solid var(--border-d);
+      border-radius: var(--radius);
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      transition: var(--transition);
+      outline: none;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(20,184,166,.15);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--text-light);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+    .form-submit {
+      width: 100%;
+      justify-content: center;
+      font-size: 0.95rem;
+      padding: 1rem;
+      margin-top: 0.5rem;
+    }
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+    .form-success .check {
+      width: 56px;
+      height: 56px;
+      background: var(--teal-l);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+    .form-success .check svg { width: 28px; height: 28px; color: var(--teal-d); }
+    .form-success h3 { margin-bottom: 0.5rem; }
+    .form-success p { font-size: 0.9rem; }
+
+    /* =====================
+       FOOTER
+    ===================== */
+    footer {
+      background: var(--dark);
+      padding: 4rem 0 2rem;
+      border-top: 3px solid var(--teal);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .footer-brand .logo { margin-bottom: 1rem; display: inline-flex; }
+    .footer-brand p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,.45);
+      line-height: 1.7;
+      max-width: 280px;
+    }
+    .footer-brand .ico {
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,.3);
+    }
+    .footer-col h4 {
+      color: var(--white);
+      font-family: 'Syne', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .footer-links a {
+      color: rgba(255,255,255,.5);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: var(--transition);
+    }
+    .footer-links a:hover { color: var(--teal); padding-left: 4px; }
+    .footer-contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .fc-item {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .fc-item svg { width: 15px; height: 15px; color: var(--teal); flex-shrink: 0; margin-top: 2px; }
+    .fc-item span {
+      font-size: 0.84rem;
+      color: rgba(255,255,255,.5);
+      line-height: 1.5;
+    }
+    .fc-item a {
+      color: rgba(255,255,255,.5);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .fc-item a:hover { color: var(--teal); }
+    .footer-bottom {
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-bottom p {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,.25);
+    }
+    .footer-bottom a {
+      color: rgba(255,255,255,.35);
+      text-decoration: none;
+    }
+
+    /* =====================
+       RESPONSIVE
+    ===================== */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-accent-bar { display: none; }
+      .hero-panel { max-width: 500px; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .stat-divider { display: none; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .service-card:nth-child(4), .service-card:nth-child(5) { grid-column: auto; }
+      .why-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .about-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .kontakt-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .form-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta .nav-phone { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu { display: block; }
+      h1 { font-size: clamp(2rem, 8vw, 3rem); }
+      .why-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 580px) {
+      .container { padding: 0 1.25rem; }
+      #hero { padding-top: 72px; }
+      .hero-inner { padding: 3rem 1.25rem; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
+      .services-grid { grid-template-columns: 1fr; }
+      .stats-inner { grid-template-columns: 1fr 1fr; }
+      .contact-form { padding: 1.5rem; }
+      .vehicles-box { flex-direction: column; gap: 1rem; }
+      .v-divider { width: 40px; height: 1px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =====================
+       NAVIGACE
+  ===================== -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="#hero" class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:#141B22">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+          </svg>
+        </div>
+        <span class="logo-text">Auto<span>služby</span> UH</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#sluzby">Služby</a></li>
+        <li><a href="#proc-my">Proč my</a></li>
+        <li><a href="#o-nas">O nás</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+        <li><a href="#formular">Poptávka</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="tel:+420572503230" class="nav-phone">+420 572 503 230</a>
+        <a href="#formular" class="btn btn-primary" style="padding:.65rem 1.25rem;font-size:.8rem;">Nezávazná poptávka</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#sluzby" class="mobile-link">Služby</a></li>
+      <li><a href="#proc-my" class="mobile-link">Proč my</a></li>
+      <li><a href="#o-nas" class="mobile-link">O nás</a></li>
+      <li><a href="#kontakt" class="mobile-link">Kontakt &amp; hodiny</a></li>
+      <li><a href="#formular" class="mobile-link">Poptávka</a></li>
+    </ul>
+    <a href="tel:+420572503230" class="m-phone">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l1.62-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      +420 572 503 230
+    </a>
+  </div>
+
+  <!-- =====================
+       HERO
+  ===================== -->
+  <section id="hero">
+    <div class="hero-glow-1"></div>
+    <div class="hero-glow-2"></div>
+    <div class="hero-accent-bar"></div>
+
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge fade-up">
+          <span class="hero-badge-dot"></span>
+          Otevřeno Po–Pá &nbsp;·&nbsp; Uherské Hradiště
+        </div>
+        <h1 class="hero-title fade-up d1">
+          Spolehlivý<br>
+          autoservis<br>
+          <span class="highlight">na správné adrese</span>
+        </h1>
+        <p class="hero-sub fade-up d2">
+          Komplexní péče o vaše vozidlo od roku 2012. Opravy, pneuservis, klimatizace, příprava na STK a dekarbonizace motorů — vše pod jednou střechou.
+        </p>
+        <div class="hero-actions fade-up d3">
+          <a href="#formular" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Nezávazná poptávka
+          </a>
+          <a href="tel:+420572503230" class="btn btn-ghost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l1.62-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Zavolat
+          </a>
+        </div>
+        <div class="hero-tags fade-up d4">
+          <span class="hero-tag">Osobní vozy</span>
+          <span class="hero-tag">Dodávky</span>
+          <span class="hero-tag">SUV</span>
+          <span class="hero-tag">IČO 29363306</span>
+        </div>
+      </div>
+
+      <!-- Info panel -->
+      <div class="hero-panel fade-up d2">
+        <div class="hero-panel-header">
+          <h4>Kontaktní informace</h4>
+        </div>
+        <div class="hero-panel-body">
+          <div class="info-row">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l1.62-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div class="info-text">
+              <div class="info-label">Telefon servis</div>
+              <div class="info-value"><a href="tel:+420572503230">+420 572 503 230</a></div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="info-text">
+              <div class="info-label">E-mail</div>
+              <div class="info-value"><a href="mailto:servis@autosluzbyuh.cz">servis@autosluzbyuh.cz</a></div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="info-text">
+              <div class="info-label">Provozovna</div>
+              <div class="info-value">Tř. M. Malinovského 473<br>686 01 Uherské Hradiště</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="info-text">
+              <div class="info-label">Otevírací doba</div>
+              <div class="info-value">Po–Čt: 8:00–17:00<br>Pá: 8:00–15:00</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-panel-footer">
+          <span class="status-dot">Přijímáme zakázky</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================
+       STATS PRUH
+  ===================== -->
+  <section id="stats">
+    <div class="container">
+      <div class="stats-inner">
+        <div class="stat-item fade-up">
+          <div class="stat-number">12+</div>
+          <div class="stat-label">Let zkušeností</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item fade-up d1">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Specializovaných služeb</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item fade-up d2">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Typy vozidel</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item fade-up d3">
+          <div class="stat-number">2</div>
+          <div class="stat-label">Kontaktní technici</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================
+       SLUŽBY
+  ===================== -->
+  <section id="sluzby">
+    <div class="container">
+      <div class="services-header">
+        <span class="section-label fade-up">Co nabízíme</span>
+        <h2 class="fade-up d1">Komplexní péče o vaše vozidlo</h2>
+        <p class="fade-up d2">Ať přijedete s jakýmkoliv problémem, postaráme se o vaše auto od A do Z. Pracujeme s osobními vozy, dodávkami i SUV.</p>
+      </div>
+      <div class="services-grid">
+
+        <!-- 1 Autoservis -->
+        <div class="service-card fade-up">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <h3>Autoservis</h3>
+          <p>Opravy a servisní údržba osobních i dodávkových automobilů. Výměna oleje, brzdový systém, řízení, podvozek a vše co vaše auto potřebuje.</p>
+        </div>
+
+        <!-- 2 Pneuservis -->
+        <div class="service-card fade-up d1">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
+          </div>
+          <h3>Pneuservis</h3>
+          <p>Sezónní přezutí, montáž, demontáž a vyvažování pneumatik. Poradíme s výběrem správných pneumatik pro váš vůz a styl jízdy.</p>
+        </div>
+
+        <!-- 3 Klimatizace -->
+        <div class="service-card fade-up d2">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3>Klimatizace</h3>
+          <p>Opravy, doplňování chladiva a diagnostika klimatizačních systémů. Servis klimatizace zajistí váš komfort po celý rok.</p>
+        </div>
+
+        <!-- 4 STK -->
+        <div class="service-card fade-up d1">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>Příprava na STK</h3>
+          <p>Komplexní příprava vozidla na technickou kontrolu STK. Předem odhalíme a opravíme závady, aby vaše auto prošlo napoprvé.</p>
+        </div>
+
+        <!-- 5 Dekarbonizace -->
+        <div class="service-card fade-up d2">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12c0-2.76 1.12-5.26 2.93-7.07"/><path d="M12 6v6l4 2"/><path d="M8 2.93A10 10 0 0 0 2.93 8"/></svg>
+          </div>
+          <h3>Dekarbonizace motorů</h3>
+          <p>Kompletní dekarbonizace motoru čistí sací potrubí, ventily a spalovací komory. Obnovte výkon a snižte spotřebu paliva.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================
+       PROČ MY
+  ===================== -->
+  <section id="proc-my">
+    <div class="why-glow"></div>
+    <div class="container">
+      <div class="why-layout">
+        <div class="why-text fade-up">
+          <span class="section-label light">Naše výhody</span>
+          <h2>Proč si vybrat Autoslužby UH?</h2>
+          <p>Nejsme jen další autoservis. Jsme místní firma s historií, přímým přístupem a odborností, která vám garantuje spokojenost.</p>
+          <a href="#formular" class="btn btn-primary" style="margin-top:0.5rem;">Poptejte se zdarma</a>
+        </div>
+        <div class="why-grid">
+          <div class="why-card fade-up d1">
+            <div class="why-number">01</div>
+            <h4>Zkušenosti od roku 2012</h4>
+            <p>Přes 12 let na trhu. Navazujeme na bohatou tradici autoopravárenství v regionu.</p>
+          </div>
+          <div class="why-card fade-up d2">
+            <div class="why-number">02</div>
+            <h4>Osobní přístup</h4>
+            <p>Vždy víte, kdo se vašemu autu věnuje. František nebo Pavel vám vše srozumitelně vysvětlí.</p>
+          </div>
+          <div class="why-card fade-up d3">
+            <div class="why-number">03</div>
+            <h4>Kompletní servis</h4>
+            <p>Od běžné údržby po speciality jako dekarbonizace — vyřídíme vše pod jednou střechou.</p>
+          </div>
+          <div class="why-card fade-up d4">
+            <div class="why-number">04</div>
+            <h4>Férové ceny</h4>
+            <p>Transparentní kalkulace, žádné skryté poplatky. Cenu vždy domluvíme předem.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================
+       O NÁS
+  ===================== -->
+  <section id="o-nas">
+    <div class="container">
+      <div class="about-layout">
+        <div class="about-content fade-up">
+          <span class="section-label">O firmě</span>
+          <h2>Autoslužby UH s.r.o.</h2>
+          <p>Vznikli jsme v roce 2012 jako nástupce autoopravárenských služeb v regionu Uherského Hradiště. Za ta léta jsme opravili stovky vozidel a vybudovali si pověst spolehlivého a poctivého servisu.</p>
+          <p>Moderní automobily jsou stále složitější — proto neustále rozšiřujeme naše vybavení a znalosti. Specializujeme se na osobní vozy, dodávky i SUV a terénní automobily.</p>
+          <ul class="about-list">
+            <li>Opravy osobních vozidel všech značek</li>
+            <li>Servis dodávkových automobilů</li>
+            <li>SUV a terénní vozidla</li>
+            <li>Přímá komunikace bez prostředníků</li>
+            <li>Jasná cenová kalkulace před opravou</li>
+          </ul>
+
+          <!-- Vozidla box -->
+          <div class="vehicles-box fade-up d2">
+            <div class="vehicle-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-3"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+              <span class="vehicle-label">Osobní vozy</span>
+            </div>
+            <div class="v-divider"></div>
+            <div class="vehicle-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              <span class="vehicle-label">Dodávky</span>
+            </div>
+            <div class="v-divider"></div>
+            <div class="vehicle-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17h16M4 17l2-5h12l2 5M4 17H2v-2a2 2 0 0 1 2-2h.5M20 17h2v-2a2 2 0 0 0-2-2h-.5M7 12V9a5 5 0 0 1 10 0v3"/><circle cx="7.5" cy="19.5" r="2.5"/><circle cx="16.5" cy="19.5" r="2.5"/></svg>
+              <span class="vehicle-label">SUV &amp; Terén</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tým -->
+        <div class="team-section fade-up d1">
+          <p class="team-title">Náš tým</p>
+          <div class="team-cards">
+            <div class="team-card">
+              <div class="team-avatar">FK</div>
+              <div class="team-info">
+                <h4>František Klas</h4>
+                <span class="role">Příjem oprav &amp; Technik</span>
+                <a href="tel:+420608851012" class="phone-link">+420 608 851 012</a>
+              </div>
+            </div>
+            <div class="team-card">
+              <div class="team-avatar">PK</div>
+              <div class="team-info">
+                <h4>Pavel Klas</h4>
+                <span class="role">Příjem oprav &amp; Fakturace</span>
+                <a href="tel:+420603323929" class="phone-link">+420 603 323 929</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Adresa karta -->
+          <div style="margin-top:1.5rem; padding:1.5rem; background:var(--concrete); border:1px solid var(--border); border-radius:var(--radius);">
+            <p style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:.75rem;">Sídlo &amp; provozovna</p>
+            <p style="font-size:.875rem;color:var(--text-mid);line-height:1.6;margin-bottom:.5rem;">
+              <strong style="color:var(--text-dark);">Provozovna:</strong><br>
+              Třída M. Malinovského 473<br>
+              686 01 Uherské Hradiště
+            </p>
+            <p style="font-size:.875rem;color:var(--text-mid);line-height:1.6;">
+              <strong style="color:var(--text-dark);">Sídlo společnosti:</strong><br>
+              Nová 604, 687 22 Ostrožská Nová Ves<br>
+              IČO: 29363306
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================
+       KONTAKT + HODINY
+  ===================== -->
+  <section id="kontakt">
+    <div class="kontakt-glow"></div>
+    <div class="container">
+      <div class="kontakt-layout">
+        <div class="kontakt-left fade-up">
+          <span class="section-label light">Otevírací doba</span>
+          <h2>Kdy nás najdete</h2>
+          <p>Jsme otevřeni od pondělí do pátku. V případě potřeby se domluvte telefonicky i mimo standardní časy.</p>
+
+          <table class="hours-table">
+            <tr>
+              <td>Pondělí</td>
+              <td>8:00–12:00 &nbsp;/&nbsp; 12:30–17:00</td>
+            </tr>
+            <tr>
+              <td>Úterý</td>
+              <td>8:00–12:00 &nbsp;/&nbsp; 12:30–17:00</td>
+            </tr>
+            <tr>
+              <td>Středa</td>
+              <td>8:00–12:00 &nbsp;/&nbsp; 12:30–17:00</td>
+            </tr>
+            <tr>
+              <td>Čtvrtek</td>
+              <td>8:00–12:00 &nbsp;/&nbsp; 12:30–17:00</td>
+            </tr>
+            <tr>
+              <td>Pátek</td>
+              <td>8:00–12:00 &nbsp;/&nbsp; 12:30–15:00</td>
+            </tr>
+            <tr>
+              <td>Sobota &amp; Neděle</td>
+              <td>Zavřeno</td>
+            </tr>
+          </table>
+
+          <div class="hours-note">
+            <strong>Tip:</strong> Termín doporučujeme domluvit telefonicky předem — zaručíme vám tak rychlejší vyřízení.
+          </div>
+        </div>
+
+        <div class="kontakt-right fade-up d2">
+          <h3>Kontaktujte nás</h3>
+          <div class="contact-cards">
+            <div class="contact-card">
+              <div class="contact-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l1.62-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div>
+                <div class="contact-card-label">Telefon — Servis</div>
+                <div class="contact-card-value"><a href="tel:+420572503230">+420 572 503 230</a></div>
+                <div class="contact-card-sub">Pevná linka servisu</div>
+              </div>
+            </div>
+            <div class="contact-card">
+              <div class="contact-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l1.62-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div>
+                <div class="contact-card-label">František Klas — Příjem &amp; Technik</div>
+                <div class="contact-card-value"><a href="tel:+420608851012">+420 608 851 012</a></div>
+                <div class="contact-card-sub">Technické dotazy a příjem zakázek</div>
+              </div>
+            </div>
+            <div class="contact-card">
+              <div class="contact-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l1.62-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div>
+                <div class="contact-card-label">Pavel Klas — Příjem &amp; Fakturace</div>
+                <div class="contact-card-value"><a href="tel:+420603323929">+420 603 323 929</a></div>
+                <div class="contact-card-sub">Fakturace a administrativa</div>
+              </div>
+            </div>
+            <div class="contact-card">
+              <div class="contact-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <div class="contact-card-label">E-mail</div>
+                <div class="contact-card-value">
+                  <a href="mailto:servis@autosluzbyuh.cz">servis@autosluzbyuh.cz</a>
+                </div>
+                <div class="contact-card-sub"><a href="mailto:info@autosluzbyuh.cz" style="color:rgba(255,255,255,.35);text-decoration:none;">info@autosluzbyuh.cz</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================
+       FORMULÁŘ
+  ===================== -->
+  <section id="formular">
+    <div class="container">
+      <div class="form-layout">
+        <div class="form-intro fade-up">
+          <span class="section-label">Poptávka</span>
+          <h2>Napište nám</h2>
+          <p>Máte otázku nebo chcete sjednat termín? Napište nám a ozveme se vám zpět co nejdříve.</p>
+          <div class="form-quick">
+            <div class="form-quick-item">
+              <span class="fq-dot"></span>
+              Odpovídáme do 24 hodin v pracovní dny
+            </div>
+            <div class="form-quick-item">
+              <span class="fq-dot"></span>
+              Nezávazná poptávka, bez poplatku
+            </div>
+            <div class="form-quick-item">
+              <span class="fq-dot"></span>
+              Termín vždy domluvíme individuálně
+            </div>
+            <div class="form-quick-item">
+              <span class="fq-dot"></span>
+              Cenu sdělíme před zahájením opravy
+            </div>
+          </div>
+        </div>
+
+        <div class="fade-up d1">
+          <div class="contact-form" id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="jmeno">Jméno a příjmení *</label>
+                <input type="text" id="jmeno" name="jmeno" placeholder="Jan Novák" required>
+              </div>
+              <div class="form-group">
+                <label for="telefon">Telefon *</label>
+                <input type="tel" id="telefon" name="telefon" placeholder="+420 777 000 000" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" placeholder="vas@email.cz">
+            </div>
+            <div class="form-group">
+              <label for="vozidlo">Typ vozidla</label>
+              <input type="text" id="vozidlo" name="vozidlo" placeholder="Např. Škoda Octavia 2018, 1.6 TDI">
+            </div>
+            <div class="form-group">
+              <label for="sluzba">Požadovaná služba</label>
+              <select id="sluzba" name="sluzba">
+                <option value="">Vyberte službu…</option>
+                <option>Autoservis — opravy a údržba</option>
+                <option>Pneuservis — přezutí a montáž</option>
+                <option>Klimatizace — oprava / doplnění</option>
+                <option>Příprava na STK</option>
+                <option>Dekarbonizace motoru</option>
+                <option>Jiné / Neuvím</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="zprava">Popis závady / dotaz</label>
+              <textarea id="zprava" name="zprava" placeholder="Popište co se děje s vaším vozidlem nebo co potřebujete…"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit" id="submitBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Odeslat poptávku
+            </button>
+          </div>
+
+          <!-- Success state -->
+          <div class="form-success" id="formSuccess">
+            <div class="check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3>Poptávka odeslána!</h3>
+            <p>Děkujeme za váš zájem. Ozveme se vám co nejdříve, nejpozději do 24 hodin v pracovní dny.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================
+       FOOTER
+  ===================== -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#hero" class="logo">
+            <div class="logo-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:#141B22">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+              </svg>
+            </div>
+            <span class="logo-text">Auto<span>služby</span> UH</span>
+          </a>
+          <p>Komplexní autoservis a pneuservis v Uherském Hradišti. Spolehlivé opravy osobních vozidel, dodávek a SUV od roku 2012.</p>
+          <p class="ico">Autoslužby UH s.r.o. &nbsp;|&nbsp; IČO: 29363306<br>Nová 604, 687 22 Ostrožská Nová Ves</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigace</h4>
+          <ul class="footer-links">
+            <li><a href="#sluzby">Naše služby</a></li>
+            <li><a href="#proc-my">Proč nás vybrat</a></li>
+            <li><a href="#o-nas">O firmě &amp; tým</a></li>
+            <li><a href="#kontakt">Otevírací doba</a></li>
+            <li><a href="#formular">Poptávka</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kontakt</h4>
+          <div class="footer-contact-list">
+            <div class="fc-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l1.62-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span><a href="tel:+420572503230">+420 572 503 230</a></span>
+            </div>
+            <div class="fc-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span><a href="mailto:servis@autosluzbyuh.cz">servis@autosluzbyuh.cz</a></span>
+            </div>
+            <div class="fc-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Tř. M. Malinovského 473<br>686 01 Uherské Hradiště</span>
+            </div>
+            <div class="fc-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Po–Čt: 8:00–17:00<br>Pá: 8:00–15:00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Autoslužby UH s.r.o. Všechna práva vyhrazena.</p>
+        <p>Web vytvořen s péčí &nbsp;·&nbsp; <a href="mailto:info@autosluzbyuh.cz">info@autosluzbyuh.cz</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =====================
+       JAVASCRIPT
+  ===================== -->
+  <script>
+    // --- Nav scroll ---
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // --- Hamburger ---
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // --- Fade-up IntersectionObserver ---
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // --- Formulář submit ---
+    const form = document.getElementById('contactForm');
+    const success = document.getElementById('formSuccess');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        btn.textContent = 'Odesílám…';
+        btn.disabled = true;
+        // Simulace odeslání (pro ostrý provoz napojit Formspree)
+        setTimeout(() => {
+          form.style.display = 'none';
+          success.style.display = 'block';
+        }, 1200);
+      });
+    }
+
+    // --- Active nav highlight na scroll ---
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const scrollSpy = () => {
+      let current = '';
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 120) current = sec.getAttribute('id');
+      });
+      navLinks.forEach(link => {
+        link.style.color = link.getAttribute('href') === '#' + current
+          ? 'var(--teal)'
+          : '';
+      });
+    };
+    window.addEventListener('scroll', scrollSpy, { passive: true });
+  </script>
+</body>
+</html>
