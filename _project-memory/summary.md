@@ -1,5 +1,6 @@
 # Projekt: Autoslužby UH s.r.o.
 **Datum zahájení:** 2026-03-25
+**Datum dokončení:** 2026-03-25
 
 ---
 
@@ -9,6 +10,13 @@
 - [x] Scraping reálného webu autosluzbyuh.cz — získány všechny info
 - [x] Navržena vizuální identita (fonty, paleta, archetype)
 - [x] Vytvořen kompletní index.html — jednostránkový web
+- [x] Opravy po screenshotu (ikony, grid, centrování, kontrast)
+- [x] Stats sekce smazána (na žádost klienta)
+- [x] Vozidla box ikony — sedan, dodávka, G-Wagon se zásobní pneumatikou
+- [x] Font nadpisů změněn: Syne → Oswald
+- [x] Nav logo: text zvětšen na 1.65rem, ikona 40px
+- [x] GitHub push → Vercel deploy
+- [x] DNA soubor vytvořen
 
 ---
 
@@ -27,9 +35,9 @@
 ---
 
 ## Vizuální identita
-### Fonty
-- **Syne** (nadpisy, 800/700/600) — geometrický, technický, moderní. Dosud nepoužitý v žádném projektu.
-- **Manrope** (tělo, 300–700) — přesný, čitelný, moderní. Dosud nepoužitý.
+### Fonty (finální)
+- **Oswald** (nadpisy, 400–700) — kondenzovaný, razantní, automotive charakter
+- **Manrope** (tělo, 300–700) — přesný, čitelný, moderní
 
 ### Paleta — "Precision & Trust"
 | Proměnná | Hex | Role |
@@ -44,66 +52,26 @@
 | `--text-dark` | #0F172A | Hlavní text |
 | `--text-mid` | #475569 | Sekundární text |
 
-**Odlišení od DNA:**
-- NE amber (M-autoservis), NE červená (O.K. autoservis), NE bronz (Zámečnictví)
-- Teal = svěží, technologický, důvěryhodný → automotive přesnost, ne agresivita
-
 ### Archetype
 **Precision & Trust** — moderní autoservis jako technologická firma
 
 ---
 
-## Struktura webu
+## Struktura webu (finální)
 1. NAV — fixed, průhledný → dark on scroll, hamburger
 2. HERO — teal glow dekorace (radial gradient), info panel vpravo
-3. STATS — teal pruh, 4 statistiky
-4. SLUŽBY — 5 karet v gridu (3+2), teal left border na hover
-5. PROČ MY — dark sekce, 4 číslované benefity (01–04)
-6. O NÁS — split: text + tým (František, Pavel Klas) + vozidla box
-7. KONTAKT + HODINY — dark sekce, split layout
-8. FORMULÁŘ — světlá sekce, intro vlevo + form vpravo
-9. FOOTER — 3 sloupce, teal border-top
-
----
-
-## Odlišující prvky od DNA projektů
-- **Hero efekt:** radial teal glow (ne canvas dots jako M-auto, ne grid texture jako O.K.)
-- **Hero info panel:** vpravo s kontakty (jinak strukturovaný než O.K.)
-- **Stats pruh:** teal bar (nové, žádný předchozí projekt tohle neměl)
-- **Tým sekce:** František a Pavel Klas s avatary (unikátní, žádný předchozí projekt)
-- **Vozidla box:** vizuální ikonky typů vozidel (unikátní)
-- **Service grid s border separátory:** jiný než karty M-autoservisu
-- **Teal border-top footer** (vs. červená u O.K.)
-
----
-
-## Technický stack
-- HTML/CSS/JS — jeden soubor index.html
-- Google Fonts: Syne + Manrope
-- Formulář: lokální simulace (Formspree lze napojit)
-- IntersectionObserver fade-up animace
-- ScrollSpy pro nav highlight
-
----
-
-## Co se řeší
-- GitHub push — repo vytvořit a pushnut
-
----
-
-## Důležitá rozhodnutí
-- Teal jako primární akcent — unikátní v kontextu všech DNA projektů (autoservisy i wellness)
-- Syne + Manrope — nová kombinace, neobjevená v žádném předchozím projektu
-- Team sekce (František + Pavel Klas) — humanizuje firmu, unikátní prvek
-- Stat pruh za hero — dává firmě váhu bez velkých textů
+3. SLUŽBY — 6 karet v gridu (3×2), teal left border na hover
+4. PROČ MY — dark sekce, 4 číslované benefity (01–04)
+5. O NÁS — split: text + tým (František, Pavel Klas) + vozidla box
+6. KONTAKT + HODINY — dark sekce, split layout
+7. FORMULÁŘ — světlá sekce, intro vlevo + form vpravo
+8. FOOTER — 3 sloupce, teal border-top
 
 ---
 
 ## Příští kroky
-- [x] GitHub push → Vercel deploy
 - [ ] Napojit formulář na Formspree (ID doplnit dle klienta)
 - [ ] Ověřit OT. dobu s klientem
-- [ ] DNA soubor po dokončení projektu
 
 ---
 
@@ -112,4 +80,9 @@
 |-------|-------|
 | 2026-03-25 | Inicializace projektu |
 | 2026-03-25 | Scraping webu, analýza DNA souborů |
-| 2026-03-25 | Kompletní index.html vytvořen (hero, stats, služby, proč my, o nás, kontakt, formulář, footer) |
+| 2026-03-25 | Kompletní index.html vytvořen |
+| 2026-03-25 | Opravy po screenshotu: ikony, stats flex, grid 3×2, centrování karet, kontrast |
+| 2026-03-25 | Stats sekce smazána, logo ikona → auto silueta |
+| 2026-03-25 | Vozidla box ikony opraveny (sedan, dodávka, G-Wagon+rezerva) |
+| 2026-03-25 | Font Syne → Oswald, nav logo text 1.65rem |
+| 2026-03-25 | GitHub push, DNA soubor vytvořen |
